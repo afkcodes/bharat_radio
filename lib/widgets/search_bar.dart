@@ -1,3 +1,4 @@
+import 'package:bharat_radio/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
@@ -28,8 +29,9 @@ class SearchBar extends StatelessWidget {
         hintText: 'Find Your Favourite Stations',
       ),
       onTap: () {
-        // Navigator.push(
-        //     context, MaterialPageRoute(builder: (context) => Search()));
+        // Here on tap i want it to go to next tab
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Search()));
       },
     );
   }
