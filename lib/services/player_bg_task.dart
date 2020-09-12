@@ -42,23 +42,18 @@ class PlayerBackGroundTask extends BackgroundAudioTask {
           // playerProvider.setPlayerState('buffering');
           break;
         case ProcessingState.completed:
-          // playerProvider.setPlayerState('completed');
+        // playerProvider.setPlayerState('completed');
           break;
         default:
           break;
       }
     });
   }
-// // Handle a request to stop audio and finish the task.
-// @override
-//   Future<void>onStop() async {
-//   super.onStop();
-// }
 
-// Handle a request to play audio.
   @override
   Future<void> onPlay() async {
-    _audioPlayer.play();
+   await _audioPlayer.play();
+    _setState(state: AudioProcessingState.ready);
   }
 
   @override
@@ -67,20 +62,13 @@ class PlayerBackGroundTask extends BackgroundAudioTask {
     await _audioPlayer.setUrl(radioItem.extras['source']);
     await onUpdateMediaItem(radioItem);
     _audioPlayer.play();
+    _setState(state: AudioProcessingState.ready);
   }
 
   @override
   Future<void> onUpdateMediaItem(MediaItem mediaItem) async {
     AudioServiceBackground.setMediaItem(mediaItem);
   }
-
-// // Handle a request to pause audio.
-// @override
-//   Future<void>onPause() async{}
-// // Handle a headset button click (play/pause, skip next/prev).
-// @override
-//   Future<void>onClick(MediaButton button) async{}
-// // Handle a request to skip to the next queue item.
 
   @override
   Future<void> onPause() async {
@@ -97,10 +85,9 @@ class PlayerBackGroundTask extends BackgroundAudioTask {
     await _audioPlayer.dispose();
     await AudioServiceBackground.setState(
       controls: [],
-      processingState: AudioProcessingState.stopped,
+      processingState: AudioProcessingState.none,
       playing: false,
     );
-    // Shut down this background task
     await super.onStop();
   }
 
