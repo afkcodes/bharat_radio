@@ -1,4 +1,3 @@
-import 'package:audio_service/audio_service.dart';
 import 'package:bharat_radio/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,14 +20,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData.light().copyWith(
-        textTheme: GoogleFonts.montserratTextTheme(Theme.of(context).textTheme),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: SafeArea(
-        child: AudioServiceWidget(
-          child: Home(),
-        ),
-      ),
+          textTheme:
+              GoogleFonts.montserratTextTheme(Theme.of(context).textTheme),
+          visualDensity: VisualDensity.adaptivePlatformDensity),
+      home: Home(),
     );
   }
 }

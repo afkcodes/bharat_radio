@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.white,
         body: ChangeNotifierProvider<AudioStateProvider>(
           create: (context) => AudioStateProvider(),
-          child: Body(),
+          child: SafeArea(child: Body()),
         ));
   }
 }

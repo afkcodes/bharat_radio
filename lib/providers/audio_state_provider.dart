@@ -19,6 +19,10 @@ class AudioStateProvider extends ChangeNotifier {
   bool get playing => _playing;
 
   Future<void> startOrPlay(MediaItem radio) async {
+    if (!AudioService.connected) {
+      await AudioService.connect();
+    }
+
     if (AudioService.running) {
       print('Coming to If startOrPlay ');
       AudioService.playMediaItem(radio);
@@ -37,16 +41,18 @@ class AudioStateProvider extends ChangeNotifier {
         .where((event) => event != null)
         .listen((event) async {
       _audioState = event.processingState;
-      print('_audioState -----------> $_audioState');
       _playing = event?.playing;
 
       /// Get error state.
       if (_audioState == AudioProcessingState.error) {
+          print('-----------------------------------------------------');
         _remoteErrorMessage = 'Network Error';
+
       }
 
       /// Reset error state.
       if (_audioState != AudioProcessingState.buffering) {
+        print('----------------?????????????????????????????????????');
         _remoteErrorMessage = null;
       }
       _playerRunning = true;

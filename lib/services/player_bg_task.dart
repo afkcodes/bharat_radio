@@ -35,14 +35,11 @@ class PlayerBackGroundTask extends BackgroundAudioTask {
       switch (event.processingState) {
         case ProcessingState.ready:
           _setState(state: AudioProcessingState.ready);
-          // playerProvider.setPlayerState('ready');
           break;
         case ProcessingState.buffering:
           _setState(state: AudioProcessingState.buffering);
-          // playerProvider.setPlayerState('buffering');
           break;
         case ProcessingState.completed:
-        // playerProvider.setPlayerState('completed');
           break;
         default:
           break;
@@ -52,17 +49,29 @@ class PlayerBackGroundTask extends BackgroundAudioTask {
 
   @override
   Future<void> onPlay() async {
-   await _audioPlayer.play();
+  try{
+    await _audioPlayer.play();
     _setState(state: AudioProcessingState.ready);
+  }
+  catch(e){
+    _audioPlayer.stop();
+    AudioService.disconnect();
+    _setState(state: AudioProcessingState.error);
+  }
   }
 
   @override
   Future<void> onPlayMediaItem(MediaItem radioItem) async {
-    await _audioPlayer.stop();
-    await _audioPlayer.setUrl(radioItem.extras['source']);
-    await onUpdateMediaItem(radioItem);
-    _audioPlayer.play();
-    _setState(state: AudioProcessingState.ready);
+    try {
+      await _audioPlayer.stop();
+      await _audioPlayer.setUrl(radioItem.extras['source']);
+      await onUpdateMediaItem(radioItem);
+      _audioPlayer.play();
+      _setState(state: AudioProcessingState.ready);
+    } catch (e) {
+      _setState(state: AudioProcessingState.error);
+    }
+
   }
 
   @override
