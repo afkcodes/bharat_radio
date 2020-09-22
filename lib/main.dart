@@ -20,10 +20,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData.light().copyWith(
-        textTheme: GoogleFonts.montserratTextTheme(Theme.of(context).textTheme),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: SafeArea(child: Home()),
+          textTheme:
+              GoogleFonts.montserratTextTheme(Theme.of(context).textTheme),
+          visualDensity: VisualDensity.adaptivePlatformDensity),
+      home: Home(),
     );
   }
 }
