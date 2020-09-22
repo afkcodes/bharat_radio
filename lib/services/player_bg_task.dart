@@ -63,13 +63,13 @@ class PlayerBackGroundTask extends BackgroundAudioTask {
   @override
   Future<void> onPlayMediaItem(MediaItem radioItem) async {
     try {
-      await _audioPlayer.stop();
       await _audioPlayer.setUrl(radioItem.extras['source']);
       await onUpdateMediaItem(radioItem);
       _audioPlayer.play();
       _setState(state: AudioProcessingState.ready);
     } catch (e) {
       _setState(state: AudioProcessingState.error);
+      _audioPlayer.stop();
     }
 
   }

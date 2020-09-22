@@ -26,6 +26,7 @@ class Header extends StatelessWidget {
           ),
           InkWell(
             onTap: onPress,
+            splashColor: Colors.transparent,
             child: CustomText(
               content: secondaryHeading,
               size: 16,
